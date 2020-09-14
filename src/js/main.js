@@ -5,20 +5,22 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function hideContent(selectorContent, selectorTab, active) {
         selectorContent.forEach((item) => {
-            item.style.display = 'none';
+            item.classList.add('hide');
+            item.classList.remove('show', 'fade');
         });
         selectorTab.forEach(tab => {
             tab.classList.remove(active);
         });
     }
     
-    function showOneTab(selectorContent, selectorTab, active, num) {
-        selectorContent[num].style.display = 'block';
+    function showOneTab(selectorContent, selectorTab, active, num = 0) {
+        selectorContent[num].classList.remove('hide');
+        selectorContent[num].classList.add('show', 'fade');
         selectorTab[num].classList.add(active);
     }
 
     hideContent(tabsCont, tabsItems, 'tabheader__item_active');
-    showOneTab(tabsCont, tabsItems, 'tabheader__item_active', 0);
+    showOneTab(tabsCont, tabsItems, 'tabheader__item_active');
     switchTabs();
 
     function switchTabs() {
