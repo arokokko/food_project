@@ -1,4 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
+    //tabs
     const tabsCont = document.querySelectorAll('.tabcontent'),
         tabsHeader = document.querySelector('.tabheader__items'),
         tabsItems = document.querySelectorAll('.tabheader__item');
@@ -33,5 +34,24 @@ window.addEventListener('DOMContentLoaded', () => {
             });
         })
     }
+
+    //timer
+    const deadline = '2020-10-09';
+    function getTimeRemaining(end) {
+        const t = Date.parse(end) - Date.parse(new Date()),
+            seconds = Math.floor(t / 1000) % 60,
+            minutes = Math.floor((t / (1000 * 60)) % 60),
+            hours = Math.floor((t / (1000 * 60 * 60)) % 24),
+            days = Math.floor(t / (1000 * 60 * 60 * 24));
+
+        return {
+            'total': t,
+            days,
+            hours,
+            minutes, 
+            seconds
+        }
+    }
+    
     
 });
