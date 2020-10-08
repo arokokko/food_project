@@ -36,7 +36,8 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     //timer
-    const deadline = '2020-10-09';
+    const deadline = '2020-10-10';
+
     function getTimeRemaining(end) {
         const t = Date.parse(end) - Date.parse(new Date()),
             seconds = Math.floor(t / 1000) % 60,
@@ -52,6 +53,42 @@ window.addEventListener('DOMContentLoaded', () => {
             seconds
         }
     }
+
+    
+    function setClock(selector, endtime) {
+
+        const timer = document.querySelector(selector),
+            days = timer.querySelector('#days'),
+            hours = timer.querySelector('#hours'),
+            minutes = timer.querySelector('#minutes'),
+            seconds = timer.querySelector('#seconds'),
+            timerInterval = setInterval(updateTime, 1000);
+
+        updateTime();
+
+        function updateTime() {
+            const t = getTimeRemaining(endtime);
+
+            days.innerHTML = getZero(t.days);
+            hours.innerHTML = getZero(t.hours);
+            minutes.innerHTML = getZero(t.minutes);
+            seconds.innerHTML = getZero(t.seconds);
+
+            if (t.total <= 0) {
+                clearInterval(timerInterval);
+            }
+        } 
+    }
+
+    //вспомогательная функция
+    function getZero(num) {
+        if(num >= 0 && num < 10) {
+            return `0${num}`;
+        } else {
+            return num;
+        }
+    }
+    setClock('.timer', deadline);
     
     
 });
