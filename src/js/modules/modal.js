@@ -1,13 +1,29 @@
 const modal = () => {
     const triggers = document.querySelectorAll('[data-modal]'),
         modalWindow = document.querySelector('.modal'),
-        close = modalWindow.querySelector('[data-close]');
+        closeBtn = modalWindow.querySelector('[data-close]');
+
+    let isModalOpened = false;    
+
+    let openModalByTime = setTimeout(openModal, 5000);
+
+    function openModalByScroll() {
+        let scrollHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight),
+            pageYOffset = Math.ceil(window.pageYOffset),
+            clientHeight = Math.ceil(document.documentElement.clientHeight);
+        
+        if(!isModalOpened && (pageYOffset + clientHeight >= scrollHeight)) {
+            openModal();
+        }
+    }
+    window.addEventListener('scroll', openModalByScroll);
+    
 
     triggers.forEach(item => {
         item.addEventListener('click', openModal);
     });
 
-    close.addEventListener('click', closeModal);
+    closeBtn.addEventListener('click', closeModal);
 
     modalWindow.addEventListener('click', (e) => {
         if(e.target == modalWindow) {
@@ -32,6 +48,8 @@ const modal = () => {
         modalWindow.classList.add('show');
         modalWindow.classList.remove('hide');
         document.body.style.overflow = 'hidden';
+        clearInterval(openModalByTime);
+        isModalOpened = true;
     }
 };
 
