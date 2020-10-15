@@ -1,11 +1,11 @@
 const modal = () => {
     const triggers = document.querySelectorAll('[data-modal]'),
         modalWindow = document.querySelector('.modal'),
-        closeBtn = modalWindow.querySelector('[data-close]');
+        closeBtn = modalWindow.querySelector('[data-close]'),
+        openModalByTime = setTimeout(openModal, 60000),
+        scrollWidth = window.innerWidth - document.documentElement.clientWidth;
 
     let isModalOpened = false;    
-
-    let openModalByTime = setTimeout(openModal, 5000);
 
     function openModalByScroll() {
         let scrollHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight),
@@ -42,12 +42,14 @@ const modal = () => {
         modalWindow.classList.add('hide');
         modalWindow.classList.remove('show');
         document.body.style.overflow = '';
+        document.body.style.marginRight = '';
     }
 
     function openModal() {
         modalWindow.classList.add('show');
         modalWindow.classList.remove('hide');
         document.body.style.overflow = 'hidden';
+        document.body.style.marginRight = scrollWidth + 'px';
         clearInterval(openModalByTime);
         isModalOpened = true;
     }
